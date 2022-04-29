@@ -5,12 +5,16 @@ var repoSearchTerm = document.querySelector("#repo-search-term");
 
 //created to be executed with a form submission browser event
 var formSubmitHandler = function(event) {
+    //prevent page from refreshing
     event.preventDefault();
     
+    //get value from input element
     var username = nameInputEl.value.trim();
 
     if (username) {
         getUserRepos(username);
+        //clear old content
+        repoContainerEl.textContent = " ";
         nameInputEl.value = " ";
     } else {
         alert("Please enter a GitHub username.")
@@ -45,6 +49,7 @@ var getUserRepos = function(user) {
 
 //creating a function to display repos
     var displayRepos = function(repos, searchTerm) {
+        //check if API returned any repos
         if (repos.length === 0) {
             repoContainerEl.textContent = "No repositories found.";
             return;
